@@ -1,0 +1,578 @@
+% Gemini theme
+% https://github.com/anishathalye/gemini
+\documentclass[final]{beamer}
+\setbeamerfont{caption}{size=\footnotesize}
+
+% ====================
+% Packages
+% ====================
+
+\RequirePackage{luatex85}
+%\usepackage[T1]{fontenc}
+% no not with luatex \usepackage[T1]{fontenc}
+\usepackage{fontspec}
+\usepackage[all]{xy}
+\usepackage[size=a0,scale=1.0]{beamerposter}
+\usetheme{gemini}
+\usecolortheme{mit}
+\usepackage{qcircuit}
+\usepackage{booktabs}
+\usepackage{tikz}
+\usetikzlibrary{arrows, fit, positioning}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.16}
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage{amsmath, amssymb, physics}
+\usepackage{subcaption}
+% ====================
+% Lengths
+% ====================
+
+% If you have N columns, choose \sepwidth and \colwidth such that
+% (N+1)*\sepwidth + N*\colwidth = \paperwidth
+\newlength{\sepwidth}
+\newlength{\colwidth}
+\setlength{\sepwidth}{0.024\paperwidth}
+\setlength{\colwidth}{0.22\paperwidth}
+
+% ====================
+% Tikz styles
+% ====================
+
+
+\newcommand{\separatorcolumn}{\begin{column}{\sepwidth}\end{column}}
+\tikzstyle{st}=[lightgray, fill, fill opacity=0.1]
+\tikzstyle{odot}=[circle,inner sep=0pt,node contents={$\odot$},scale=1.5]
+\tikzstyle{spin}=[-triangle 45, thick]
+\tikzstyle{superpeers}=[draw,circle,left,text=black,scale=0.5]
+\definecolor{mitred}{cmyk}{0.24, 1.0, 0.78, 0.17}
+\definecolor{skyblue}{rgb}{0.53, 0.81, 0.94}
+
+
+% ====================
+% Data
+% ====================
+
+\pgfplotstableread[col sep = comma]{./data/real-network-00.csv}\realnetworkzz
+\pgfplotstableread[col sep = comma]{./data/real-network-01.csv}\realnetworkzo
+\pgfplotstableread[col sep = comma]{./data/real-network-10.csv}\realnetworkoz
+\pgfplotstableread[col sep = comma]{./data/real-network-11.csv}\realnetworkoo
+\pgfplotstableread[col sep = comma]{./data/sim-network-00.csv}\simnetworkzz
+\pgfplotstableread[col sep = comma]{./data/sim-network-01.csv}\simnetworkzo
+\pgfplotstableread[col sep = comma]{./data/sim-network-10.csv}\simnetworkoz
+\pgfplotstableread[col sep = comma]{./data/sim-network-11.csv}\simnetworkoo
+\pgfplotstableread[col sep =comma]{./data/sim-box-cluster-00.csv}\simclusterzz
+\pgfplotstableread[col sep = comma]{./data/sim-box-cluster-01.csv}\simclusterzo
+\pgfplotstableread[col sep = comma]{./data/sim-box-cluster-10.csv}\simclusteroz
+\pgfplotstableread[col sep = comma]{./data/sim-box-cluster-11.csv}\simclusteroo
+\pgfplotstableread[col sep = comma]{./data/real-box-cluster-00.csv}\realclusterzz
+\pgfplotstableread[col sep = comma]{./data/real-box-cluster-01.csv}\realclusterzo
+\pgfplotstableread[col sep = comma]{./data/real-box-cluster-10.csv}\realclusteroz
+\pgfplotstableread[col sep = comma]{./data/real-box-cluster-11.csv}\realclusteroo
+
+
+% ====================
+% Title
+% ====================
+
+\title{Modeling of Measurement-based Quantum Computing on IBM Q Experience Devices}
+
+\author{Unathi K. Skosana \inst{1} \and Supervisor: Prof. Mark Tame \inst{2}}
+
+\institute[shortinst]{Department of Physics, Stellenbosch University}
+
+% ====================
+% Body
+% ====================
+
+\begin{document}
+
+    \addtobeamertemplate{headline}{} 
+    {
+    \begin{tikzpicture}[remember picture,overlay] 
+        \node [shift={(-10cm,-4.0cm)}] at (current page.north east)
+        {\includegraphics[height=5cm]{logo/logo.pdf}}; 
+    \end{tikzpicture} 
+    }
+
+
+    \begin{frame}[t]
+        \begin{columns}[t]
+            \separatorcolumn
+
+            \begin{column}{\colwidth}
+                \begin{block}{One-way quantum computing}
+                    %% TODO : References 
+                    One-way quantum computing is a one of many frameworks of quantum
+                    measurement-based quantum computing (MBQC).
+
+                    In such framework, a quantum computation is not realized through explicit
+                    unitary evolution of qubits mediated by unitary quantum gates as in the
+                    quantum circuit model.
+
+                    Rather, a computation is realized through a sequential single-qubit
+                    measurements on an initial resource state.
+
+                    \begin{figure}[H]
+                        \centering
+                        \begin{tikzpicture}
+                            \draw[-triangle 45, very thick] (1.5, 1)  -- +(0:8.0) node[midway, above] {Information flow};
+                            \foreach \i in {0,...,11} {
+                                \ifnum \i < 5
+                                    \draw[spin] (\i, 0) -- +(90:0.5);
+                                \fi
+                                \ifnum \i = 5
+                                    \draw[spin] (\i, 0) -- +(75:0.5);
+                                \fi
+                                \ifnum \i = 6
+                                    \draw[spin] (\i, 0) -- +(75:0.5);
+                                \fi
+                                \ifnum \i = 7
+                                    \draw[spin] (\i, 0) -- +(125:0.5);
+                                \fi
+                                \ifnum \i = 8
+                                    \draw[spin] (\i, 0) -- +(55:0.5);
+                                \fi
+                                \ifnum \i > 8
+                                    \draw[spin] (\i, 0) -- +(90:0.5);
+                                \fi
+                            };
+
+                            \foreach \i in {0,...,11} {
+                                \ifnum \i = 3
+                                    \draw[spin] (\i, -1.25) -- +(90:0.5);
+                                \fi
+                                \ifnum \i > 3
+                                    \node[odot, name=o1, at={(\i,-1)}];
+                                \fi
+                                \ifnum \i < 3
+                                    \node[odot, name=o1, at={(\i,-1)}];
+                                \fi
+                            };
+
+                            \foreach \i in {0,...,11} {
+                                \ifnum  \i = 2 
+                                    \node[odot, name=o2, at={(\i, -2)}];
+                                \fi
+                                \ifnum \i = 3 
+                                    \draw[spin] (\i, -2.25) -- +(90:0.5);
+                                \fi
+                                \ifnum  \i = 4 
+                                    \node[odot, name=o2, at={(\i, -2)}];
+                                \fi
+                                \ifnum  \i < 2 
+                                    \draw[spin] (\i, -2.25) -- +(90:0.5);
+                                \fi
+                                \ifnum \i > 4
+                                    \draw[spin] (\i, -2.25) -- +(90:0.5);
+                                \fi
+                            };
+
+                            \foreach \i in {0,...,11} {
+                                \ifnum  \i =  0
+                                    \node[odot, name=o3, at={(\i, -3)}];
+                                \fi
+                                \ifnum \i  > 0
+                                    \ifnum \i < 6
+                                        \draw[spin] (\i, -3.25) -- +(90:0.5);
+                                    \fi
+                                \fi
+                                \ifnum  \i =  6
+                                    \node[odot, name=o3, at={(\i, -3)}];
+                                \fi
+                                \ifnum \i = 7
+                                    \draw[spin] (\i, -3.25) -- +(90:0.5);
+                                \fi
+                                \ifnum \i > 7
+                                    \node[odot, name=o3, at={(\i, -3)}];
+                                \fi
+                            };
+
+                            \foreach \i in {0,...,11} {
+                                \ifnum \i < 7
+                                    \node[odot, name=o4, at={(\i, -4)}];
+                                \fi
+                                \ifnum  \i =  7
+                                    \draw[spin] (\i, -4.25) -- +(90:0.5);
+                                \fi
+                                \ifnum \i > 7
+                                    \node[odot, name=o4, at={(\i, -4)}];
+                                \fi
+                            };
+
+                        \end{tikzpicture}
+                        \caption{Propagation of information through an entangled state
+                            $\ket{\phi}_{\mathcal{C}}$ via measurements. Tilted
+                            arrows represented $x-y$ plane measurements, vertical arrows represent
+                            measurements of $\hat{\sigma}_x$ and the circles denote measurement of
+                        $\hat{\sigma}_z$}
+                        \label{fig:information_propagation_through_a_cluster_state}
+                    \end{figure}
+                \end{block}
+
+                \begin{block}{Graph states for quantum computation}
+                    %%% TODO: References
+                    The initial resource states are provided in the form  of highly
+                    entangled multi-qubit states called \textbf{graph states}
+
+                    \begin{align}
+                        \ket{G} = \displaystyle\prod_{\{k, l\} \in E}
+                        \text{CZ}^{kl}\ket{+}^{\otimes |V|}
+                        \label{eq:graph_state_preparation}
+                    \end{align}
+
+                    The two-qubit gate $\text{CZ}^{kl}$ (controlled
+                    $\hat{\sigma}_z$) is applied between pairs of
+                    vertices according to the edge set $E$ of the underlying graph
+                    $G= (V, E)$, describing the topology of the state.
+
+                    \begin{figure}[H]
+                        \centering
+                        \begin{subfigure}[b]{0.40\textwidth}
+                            \centering
+                            \caption{A three-qubit linear graph state}
+                            \begin{tikzpicture}[thick,auto]
+                                \foreach \place/\name in {{(2,-5)/3}, {(0,-3)/1},
+                                {(-2,-5)/2}}
+                                    \node[superpeers] (\name) at \place {$\textbf{\name}$};
+                                    \path (1) edge (2);
+                                    \path (3) edge (1);
+                            \end{tikzpicture}
+                            \label{fig:triangle_cluster_3q}
+                        \end{subfigure}
+                        \begin{subfigure}[b]{0.40\textwidth}
+                            \centering
+                            \caption{A three-qubit triangle graph state}
+                            \begin{tikzpicture}[thick,auto]
+                                \foreach \place/\name in {{(2,-5)/3}, {(0,-3)/1},
+                                {(-2,-5)/2}}
+                                    \node[superpeers] (\name) at \place {$\textbf{\name}$};
+                                    \path (1) edge (2);
+                                    \path (2) edge (3);
+                                    \path (1) edge (3);
+                            \end{tikzpicture}
+                            \label{fig:linear_cluster_3q}
+                        \end{subfigure}
+                        \begin{subfigure}[b]{0.40\textwidth}
+                            \centering
+                            \caption{A four-qubit linear graph state}
+                            \begin{tikzpicture}[thick,auto]
+                                \foreach \place/\name in {{(-4,-1)/1}, {(0,-1)/2},
+                                {(0,-5)/3}, {(-4,-5)/4}}
+                                    \node[superpeers] (\name) at \place {$\textbf{\name}$};
+                                    \path (1) edge (2);
+                                    \path (3) edge (4);
+                                    \path (2) edge (3);
+                            \end{tikzpicture}
+                            \label{fig:linear_cluster_4q}
+                        \end{subfigure}
+                        \begin{subfigure}[b]{0.40\textwidth}
+                            \centering
+                            \caption{A four-qubit box graph state}
+                            \begin{tikzpicture}[thick,auto]
+                                \foreach \place/\name in {{(-4,-1)/1}, {(0,-1)/2},
+                                {(0,-5)/3}, {(-4,-5)/4}}
+                                    \node[superpeers] (\name) at \place {$\textbf{\name}$};
+                                    \path (1) edge (2);
+                                    \path (3) edge (4);
+                                    \path (2) edge (3);
+                                    \path (1) edge (4);
+                            \end{tikzpicture}
+                            \label{fig:box_cluster_4q}
+                        \end{subfigure}
+                        \caption{A few representives graph states. }
+                        \label{fig:graph_states}
+                    \end{figure}
+
+                    \heading{Local unitaries}
+                    %% TODO : References
+                    If two graph state vectors $\ket{G}$ and $\ket{G'}$  and their
+                    underlying graphs $G$ and  $G'$ are said to
+                    equivalent to another under a local unitary $\hat{U}$ 
+
+                    \begin{align}
+                        \ket{G'} = \hat{U}\ket{G}
+                        \label{eq:graph_state_unitary_equivalence}
+                    \end{align}
+
+                    The graph states $\ket{G}$ and  $\ket{G'}$ are said to belong some
+                    equivalence class and within such a class, all graph states are
+                    equivalent modulo local unitaries (LU). 
+
+
+                    \heading{Edge local complementaion and equivalence classes}
+                    From an underling graph $G = (V, E)$ of a graph state $\ket{G}$, a new
+                    graph $G' = (V, E')$ and an associated graph state $\ket{G'}$ can be
+                    realized via the complement of a subgraph induced by the neighborhood of some vertex $k
+                    \in V$ of $G$. The two graph states $\ket{G}$ and $\ket{G'}$ are said belong to the same
+                    \textbf{LU-equivalence} class.
+                \end{block}
+            \end{column}
+
+            \separatorcolumn
+
+            \begin{column}{\colwidth}
+                \begin{block}{Equivalence classes of graph states}
+                    \heading{Unitary for edge complementaion}
+                    The mapping $\tau^k : G \mapsto G'$ under edge local complementaion is mediated
+                    by a unitary operation $\hat{U}^{k}$
+
+                    \begin{align}
+                        \ket{\tau^k(G)} =\hat{U}^{k}(G) \ket{G}
+                        \label{eq:edge_local_complementation_mapping}
+                    \end{align}
+
+                    where $\hat{U}^{k}$ is of the form
+
+                    \begin{align}
+                        \hat{U}^{k}(G) = (-i\hat{\sigma}_x^{k})^{1/2} \displaystyle\prod_{l
+                        \in \eta_k} (i \hat{\sigma}_z^{l})^{1/2}
+                        \label{eq:edge_local_complementation_unitary}
+                    \end{align}
+
+                    \heading{Four-qubit linear graph state $\stackrel{\text{\tiny LU}}{\equiv}$
+                    Four-qubit box graph state}
+
+                    Starting from the four-qubit linear graph state as in Fig.
+                    ~\ref{fig:linear_cluster_4q}, a sequential application of edge local
+                    complementaion on the vertices $3, 2$ and $3$ produces a four-qubit box
+                    graph state similar to the one in Fig.~\ref{fig:box_cluster_4q}
+
+                    \begin{figure}[H]
+                        \begin{subfigure}[b]{0.25\textwidth}
+                            \begin{tikzpicture}[thick,auto]
+                                \foreach \place/\name in {{(2,-5)/4}, {(0,-3)/1}, {(-2,-5)/2},
+                                {(0, -7)}/3}
+                                    \node[superpeers] (\name) at \place {$\textbf{\name}$};
+                                    \path (1) edge (2);
+                                    \path (2) edge (3);
+                                    \path (3) edge (4);
+                            \end{tikzpicture}
+                        \end{subfigure}%
+                        \begin{subfigure}[b]{0.25\textwidth}
+                            \begin{tikzpicture}[thick,auto]
+                                \foreach \place/\name in {{(2,-5)/4}, {(0,-3)/1}, {(-2,-5)/2},
+                                {(0, -7)}/3}
+                                    \node[superpeers] (\name) at \place {$\textbf{\name}$};
+                                    \path (1) edge (2);
+                                    \path (2) edge (3);
+                                    \path (3) edge (4);
+                                    \path (2) edge (4);
+                            \end{tikzpicture}
+                        \end{subfigure}%
+                        \begin{subfigure}[b]{0.25\textwidth}
+                            \begin{tikzpicture}[thick,auto]
+                                \foreach \place/\name in {{(2,-5)/4}, {(0,-3)/1}, {(-2,-5)/2},
+                                {(0, -7)}/3}
+                                    \node[superpeers] (\name) at \place {$\textbf{\name}$};
+                                    \path (1) edge (2);
+                                    \path (2) edge (3);
+                                    \path (2) edge (4);
+                                    \path (1) edge (3);
+                            \end{tikzpicture}
+                        \end{subfigure}%
+                        \begin{subfigure}[b]{0.25\textwidth}
+                            \begin{tikzpicture}[thick,auto]
+                                \foreach \place/\name in {{(2,-5)/4}, {(0,-3)/1}, {(-2,-5)/2},
+                                    {(0, -7)}/3}
+                                        \node[superpeers] (\name) at \place {$\textbf{\name}$};
+                                        \path (1) edge (4);
+                                        \path (2) edge (3);
+                                        \path (2) edge (4);
+                                        \path (1) edge (3);
+                            \end{tikzpicture}
+                        \end{subfigure}
+                        \caption{Sequentially applying the edge local complementaion
+                            rule on a four-qubit linear graph state showing that such a
+                            state is LU-equivalent to four-qubit box graph state under
+                            unitary transformation $\hat{U}^{3}\hat{U}^{2}\hat{U}^{3} =
+                            \hat{\sigma}^{1}_{z}\otimes\hat{H}^{2}\otimes\hat{H}^{3}\otimes\hat{\sigma}^{4}_z$}
+                            \label{fig:edge_local_complementation_example}
+                    \end{figure}
+
+                    Under the vertex-mapping bijection that swaps vertex $1$ and $4$, the
+                    graphs in the last step of
+                    Fig.~\ref{fig:edge_local_complementation_example} and
+                    Fig.~\ref{fig:box_cluster_4q} are isomorphic to one another.
+
+
+                    % \heading{General algorithm}
+                    % For a search space of size $N=2^n$ indexed (by some  $n$-bit integer) elements, we wish to find a specific
+                    % item $x^{*}$ identified by some unique index $i^{*} \in \{0, N - 1\}$. A function $f(x)$
+                    % implemented by an \textbf{oracle} $O$ defines our a particular search
+                    % problem ~\cite{Nielsen2000}.
+
+
+                    %\begin{align}
+                    %    f(x) &= \begin{cases} 
+                    %        1 & \text{if $x = x^{*}$} \\
+                    %        0 & \text{otherwise}
+                    %    \end{cases}
+                    %\end{align}
+
+                    % For a classical oracle one would have to consult the oracle at most $N -
+                    % 1$ times.
+
+                    %A quantum oracle $\hat{O} : \ket{x} \stackrel{\hat{O}}{\to} (-1)^{f(x)}\ket{x}$ can be constructed such that at most, the oracle is
+                    %only consulted $\mathcal{O}(\sqrt{N})$ times.
+
+                    %\heading{Procedure}
+
+                    %\begin{enumerate}
+                    %    \item Prepare input register in the state $\ket{0}^{\otimes n}$
+                    %    \item Apply Hadamard transform  $H^{\otimes n}$ to put input register in
+                    %        $\ket{+}^{\otimes n}$ to prepare $\ket{\psi}$
+                    %    \item Apply oracle O
+                    %    \item Apply mean inversion operator : $H^{\otimes n}(2\ket{0}\bra{0} -
+                    %        I)H^{\otimes n} = 2\ket{\psi}\bra{\psi} - I$
+                    %    \item Repeat step 2 and 3 $\mathcal{O}(\sqrt{N})$ times
+                    %    \item Measure
+                    %\end{enumerate}
+                \end{block}
+                \begin{block}{Case Study 00 : Grover's quantum search algorithm}
+                    %% TODO : References
+                    \heading{Two-qubit quantum search on four-qubit box graph state}
+                    A two-qubit measurement-based version of Grover's quantum search algorithm can be realized
+                    on the four-qubit box graph state.
+
+                    Through Measurements of qubits $1$ and $4$ of Fig.~\ref{fig:box_cluster_4q} in the
+                    basis $B_j(\alpha) = \{\ket{+\alpha}_j, \ket{-\alpha}_j\}$
+                    where $\ket{\pm \alpha} = \frac{1}{\sqrt{2}}(\ket{0}_j \pm
+                    e^{i\alpha}\ket{1}_j) \quad (\alpha \in \mathbb{R})$. Reading out
+                    qubits $2$ and $3$ in the basis $B(\pi) =
+                    \frac{1}{\sqrt{2}}(\ket{0}_j \mp \ket{1}_j)$.
+
+
+                    \begin{figure}[H]
+                        \raggedright
+                        \begin{minipage}[c]{0.40\textwidth}
+                            \begin{tikzpicture}[thick,auto] 
+                                \draw (-4 , 0) node[label={measure}] {};
+                                \draw (0 , 0) node[label={readout}] {};
+                                \draw[dashed] (-2.0, 0) -- ++(0, -5.5) {};
+
+                                \foreach \place/\name in {{(0,-1)/2}, {(-3,-1)/1},
+                                {(-3,-4)/4}, {(0,-4)/3}}
+                                    \node[superpeers] (\name) at \place {$\textbf{\name}$};
+                                    \path (1) edge (2);
+                                    \path (3) edge (4);
+                                    \path (2) edge (3);
+                                    \path (1) edge (4);
+                            \end{tikzpicture}
+                        \end{minipage}%
+                        \begin{minipage}[c]{0.40\textwidth}
+                            \[
+                                \Qcircuit @C=1.0em @R=.6em @!R {
+                                    & & \mbox{oracle} & & &  & & \\
+                                    \lstick{\ket{+}_2} & \ctrl{1}
+                                    & \gate{R_z^{(-\alpha)}}
+                                    & \gate{H} & \ctrl{1}
+                                    & \gate{\sigma_z}  & \gate{H}
+                                    &  \meter & \cw \\
+                                    \lstick{\ket{+}_3} & \ctrl{-1}
+                                    & \gate{R_z^{(-\beta)}}
+                                    & \gate{H} & \ctrl{-1}
+                                    & \gate{\sigma_z} & \gate{H}
+                                    & \meter & \cw 
+                                    \gategroup{2}{2}{3}{3}{.6em}{--}
+                                    \gategroup{2}{4}{3}{7}{.6em}{--} \\ 
+                                    &  &  & & & \mbox{mean inversion} & & 
+                                    }
+                            \]
+                        \end{minipage}
+                    \end{figure}
+
+                    Each of the four cases where the oracle tags the elements
+                    $00$, $01$, $10$ and $11$ are realized by the measurement
+                    settings $\alpha\beta = $ $\pi\pi$, $\pi0$, $0\pi$ and $00$
+                    respectively.
+
+                    \heading{Caveats}
+                    The outcome of a measurement in the basis $B_i(\alpha)$ on
+                    qubit $i$ $o_i$, which is 0(1) for a measurement of
+                    $\ket{+\alpha}(\ket{-\alpha})$.  If the measurement on qubit
+                    $1$ and $4$ are anything either than $o_1= 0$ and $o_4= 0$ a
+                    Pauli errors are introduced and there is a need to
+                    reinterpret the outcomes on qubit $2$ and $3$. In this
+                    scenario, a feedforward  of the outcomes must be applied 
+                    $\{o_2 \oplus o_4, o_3 \oplus o_ 1\}$.
+                \end{block}
+            \end{column}
+
+            \separatorcolumn
+
+            \begin{column}{\colwidth}
+                \begin{block}{Case study 01 : Performance-improved quantum search}
+                    The LU-equivalence and isomorphism of the four-qubit linear and box
+                    graph state offers a way to improve the performance of the
+                    former implementation.
+
+                    The resultant LU-equivalent four-qubit
+                    linear graph state has one less $\text{CZ}$ gate than the
+                    four-qubit graph state, which significantly improves upon
+                    the performance of the former implementation since two-qubit
+                    gates have error rates that are much higher than
+                    single-qubit gates.
+
+                    The measurement procedure is the same as in the former
+                    implementation, however the feedforward relation has
+                    modified to $\{o_2 \oplus o_1, o_3 \oplus o_4 \}$ since
+                    qubits $2$ and $3$ have to swapped. Similarly measurement outcomes have
+                    to swapped.
+
+                \end{block}
+                \begin{block}{Qiskit experiments}
+                    To model the algorithm described in case study 00, the
+                    quantum circuit in Fig . 
+
+                    \begin{figure}[H]
+                        \raggedright
+                        \begin{minipage}{0.30\textwidth}
+                            \[
+                                \Qcircuit @C=1.0em @R=.6em @!R {
+                                    \lstick{} & \gate{H} & \ctrl{1}  & \qw       & \qw
+                                            & \ctrl{1} & \gate{R_z^{(-\alpha)}} &
+                                    \gate{H} & \meter \\
+                                    \lstick{} & \gate{H} & \ctrl{-1} & \ctrl{1}  & \qw
+                                            & \qw & \gate{Z} & \gate{H} & \meter \\
+                                    \lstick{} & \gate{H} & \qw       & \ctrl{-1} & \ctrl{1}
+                                            & \qw & \gate{Z} & \gate{H} & \meter \\
+                                    \lstick{} & \gate{H} & \qw       & \qw       & \ctrl{-1}
+                                            & \ctrl{-3} & \gate{R_z^{(-\beta)}} &
+                                    \gate{H} & \meter \inputgroupv{1}{4}{.8em}{.8em}{\ket{0}^{\otimes 4}}
+                                }
+                            \]
+                        \end{minipage}%
+                        \begin{minipage}{0.30\textwidth}
+                            \[
+                                \Qcircuit @C=1.0em @R=.6em @!R {
+                                    \lstick{} & \gate{H} & \ctrl{1}  & \qw       & \qw
+                                            & \ctrl{1} & \gate{R_z^{(-\alpha)}} &
+                                    \gate{H} & \meter \\
+                                    \lstick{} & \gate{H} & \ctrl{-1} & \ctrl{1}  & \qw
+                                            & \qw & \gate{Z} & \gate{H} & \meter \\
+                                    \lstick{} & \gate{H} & \qw       & \ctrl{-1} & \ctrl{1}
+                                            & \qw & \gate{Z} & \gate{H} & \meter \\
+                                    \lstick{} & \gate{H} & \qw       & \qw       & \ctrl{-1}
+                                            & \ctrl{-3} & \gate{R_z^{(-\beta)}} &
+                                    \gate{H} & \meter \inputgroupv{1}{4}{.8em}{.8em}{\ket{0}^{\otimes 4}}
+                                }
+                            \]
+                        \end{minipage}
+
+                    \end{figure}
+
+                \end{block}
+            \end{column}
+
+            \separatorcolumn
+
+            \begin{column}{\colwidth}
+                \begin{block}{Results}
+                \end{block}
+            \end{column}
+        \end{columns}
+    \end{frame}
+
+\end{document}
