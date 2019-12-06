@@ -54,22 +54,6 @@
 % Data
 % ====================
 
-\pgfplotstableread[col sep = comma]{./data/real-network-00.csv}\realnetworkzz
-\pgfplotstableread[col sep = comma]{./data/real-network-01.csv}\realnetworkzo
-\pgfplotstableread[col sep = comma]{./data/real-network-10.csv}\realnetworkoz
-\pgfplotstableread[col sep = comma]{./data/real-network-11.csv}\realnetworkoo
-\pgfplotstableread[col sep = comma]{./data/sim-network-00.csv}\simnetworkzz
-\pgfplotstableread[col sep = comma]{./data/sim-network-01.csv}\simnetworkzo
-\pgfplotstableread[col sep = comma]{./data/sim-network-10.csv}\simnetworkoz
-\pgfplotstableread[col sep = comma]{./data/sim-network-11.csv}\simnetworkoo
-\pgfplotstableread[col sep =comma]{./data/sim-box-cluster-00.csv}\simclusterzz
-\pgfplotstableread[col sep = comma]{./data/sim-box-cluster-01.csv}\simclusterzo
-\pgfplotstableread[col sep = comma]{./data/sim-box-cluster-10.csv}\simclusteroz
-\pgfplotstableread[col sep = comma]{./data/sim-box-cluster-11.csv}\simclusteroo
-\pgfplotstableread[col sep = comma]{./data/real-box-cluster-00.csv}\realclusterzz
-\pgfplotstableread[col sep = comma]{./data/real-box-cluster-01.csv}\realclusterzo
-\pgfplotstableread[col sep = comma]{./data/real-box-cluster-10.csv}\realclusteroz
-\pgfplotstableread[col sep = comma]{./data/real-box-cluster-11.csv}\realclusteroo
 
 
 % ====================
@@ -112,7 +96,8 @@
                     quantum circuit model.
 
                     Rather, a computation is realized through a sequential single-qubit
-                    measurements on an initial resource state.
+                    measurements on an initial resource
+                    state~\cite{PhysRevA.68.022312}.
 
                     \begin{figure}[H]
                         \centering
@@ -306,7 +291,7 @@
                     graph $G' = (V, E')$ and an associated graph state $\ket{G'}$ can be
                     realized via the complement of a subgraph induced by the neighborhood of some vertex $k
                     \in V$ of $G$. The two graph states $\ket{G}$ and $\ket{G'}$ are said belong to the same
-                    \textbf{LU-equivalence} class.
+                    \textbf{LU-equivalence} class~\cite{PhysRevA.69.062311}.
                 \end{block}
             \end{column}
 
@@ -316,7 +301,8 @@
                 \begin{block}{Equivalence classes of graph states}
                     \heading{Unitary for edge complementaion}
                     The mapping $\tau^k : G \mapsto G'$ under edge local complementaion is mediated
-                    by a unitary operation $\hat{U}^{k}$
+                    by a unitary operation
+                    $\hat{U}^{k}$~\cite{PhysRevA.69.062311}
 
                     \begin{align}
                         \ket{\tau^k(G)} =\hat{U}^{k}(G) \ket{G}
@@ -395,47 +381,12 @@
                     graphs in the last step of
                     Fig.~\ref{fig:edge_local_complementation_example} and
                     Fig.~\ref{fig:box_cluster_4q} are isomorphic to one another.
-
-
-                    % \heading{General algorithm}
-                    % For a search space of size $N=2^n$ indexed (by some  $n$-bit integer) elements, we wish to find a specific
-                    % item $x^{*}$ identified by some unique index $i^{*} \in \{0, N - 1\}$. A function $f(x)$
-                    % implemented by an \textbf{oracle} $O$ defines our a particular search
-                    % problem ~\cite{Nielsen2000}.
-
-
-                    %\begin{align}
-                    %    f(x) &= \begin{cases} 
-                    %        1 & \text{if $x = x^{*}$} \\
-                    %        0 & \text{otherwise}
-                    %    \end{cases}
-                    %\end{align}
-
-                    % For a classical oracle one would have to consult the oracle at most $N -
-                    % 1$ times.
-
-                    %A quantum oracle $\hat{O} : \ket{x} \stackrel{\hat{O}}{\to} (-1)^{f(x)}\ket{x}$ can be constructed such that at most, the oracle is
-                    %only consulted $\mathcal{O}(\sqrt{N})$ times.
-
-                    %\heading{Procedure}
-
-                    %\begin{enumerate}
-                    %    \item Prepare input register in the state $\ket{0}^{\otimes n}$
-                    %    \item Apply Hadamard transform  $H^{\otimes n}$ to put input register in
-                    %        $\ket{+}^{\otimes n}$ to prepare $\ket{\psi}$
-                    %    \item Apply oracle O
-                    %    \item Apply mean inversion operator : $H^{\otimes n}(2\ket{0}\bra{0} -
-                    %        I)H^{\otimes n} = 2\ket{\psi}\bra{\psi} - I$
-                    %    \item Repeat step 2 and 3 $\mathcal{O}(\sqrt{N})$ times
-                    %    \item Measure
-                    %\end{enumerate}
                 \end{block}
                 \begin{block}{Case Study 00 : Grover's quantum search algorithm}
                     %% TODO : References
                     \heading{Two-qubit quantum search on four-qubit box graph state}
                     A two-qubit measurement-based version of Grover's quantum search algorithm can be realized
-                    on the four-qubit box graph state.
-
+                    on the four-qubit box graph state.~\cite{Walther_2005}
                     Through Measurements of qubits $1$ and $4$ of Fig.~\ref{fig:box_cluster_4q} in the
                     basis $B_j(\alpha) = \{\ket{+\alpha}_j, \ket{-\alpha}_j\}$
                     where $\ket{\pm \alpha} = \frac{1}{\sqrt{2}}(\ket{0}_j \pm
@@ -503,7 +454,7 @@
             \separatorcolumn
 
             \begin{column}{\colwidth}
-                \begin{block}{Case study 01 : Performance-improved quantum search}
+                \begin{block}{Case study 01 : Improved quantum search}
                     The LU-equivalence and isomorphism of the four-qubit linear and box
                     graph state offers a way to improve the performance of the
                     former implementation.
@@ -523,44 +474,72 @@
 
                 \end{block}
                 \begin{block}{Qiskit experiments}
-                    To model the algorithm described in case study 00, the
-                    quantum circuit in Fig . 
+                    To model the algorithm described in two case studies, the
+                    quantum circuits  in Fig.~\ref{fig:qiskit_box_graph_state}
+                    and Fig.~\ref{fig:qiskit_linear_graph_state} were executed on the
+                    IBM Q 5 vigo machine, with trials of 8100 shots.
+
+                    Since the IBM Q 5 vigo machine doesn't have the necessary
+                    topology for a four-qubit box graph state, the
+                    mapping to physical qubits was chosen as to minimize the
+                    number of swaps gate in the resulting transpiled circuit.
+
+                    To further limit the number of gates, the feedforward
+                    operations which would be CNOT gates on the
+                    relevant qubtis were done post. Similarly, the swap of
+                    qubits $2$ and $3$ in the algorithm in case stduy $01$ was
+                    also done post.
+
+                    The four-qubit linear graph sate passed an multi-partitte
+                    stabilizer-based entanglement witnesses
+                    test~\cite{PhysRevA.72.022340}, giving an expectation value of
+                    $\expval{\mathcal{W}} = -0.45 \pm 0.261$ while the four-qubit
+                    box graph state narrowly failed the entanglement witness
+                    test, giving $\expval{\mathcal{W}} = 0.003 \pm 0.260$.
 
                     \begin{figure}[H]
-                        \raggedright
-                        \begin{minipage}{0.30\textwidth}
-                            \[
-                                \Qcircuit @C=1.0em @R=.6em @!R {
-                                    \lstick{} & \gate{H} & \ctrl{1}  & \qw       & \qw
-                                            & \ctrl{1} & \gate{R_z^{(-\alpha)}} &
-                                    \gate{H} & \meter \\
-                                    \lstick{} & \gate{H} & \ctrl{-1} & \ctrl{1}  & \qw
-                                            & \qw & \gate{Z} & \gate{H} & \meter \\
-                                    \lstick{} & \gate{H} & \qw       & \ctrl{-1} & \ctrl{1}
-                                            & \qw & \gate{Z} & \gate{H} & \meter \\
-                                    \lstick{} & \gate{H} & \qw       & \qw       & \ctrl{-1}
-                                            & \ctrl{-3} & \gate{R_z^{(-\beta)}} &
-                                    \gate{H} & \meter \inputgroupv{1}{4}{.8em}{.8em}{\ket{0}^{\otimes 4}}
-                                }
-                            \]
-                        \end{minipage}%
-                        \begin{minipage}{0.30\textwidth}
-                            \[
-                                \Qcircuit @C=1.0em @R=.6em @!R {
-                                    \lstick{} & \gate{H} & \ctrl{1}  & \qw       & \qw
-                                            & \ctrl{1} & \gate{R_z^{(-\alpha)}} &
-                                    \gate{H} & \meter \\
-                                    \lstick{} & \gate{H} & \ctrl{-1} & \ctrl{1}  & \qw
-                                            & \qw & \gate{Z} & \gate{H} & \meter \\
-                                    \lstick{} & \gate{H} & \qw       & \ctrl{-1} & \ctrl{1}
-                                            & \qw & \gate{Z} & \gate{H} & \meter \\
-                                    \lstick{} & \gate{H} & \qw       & \qw       & \ctrl{-1}
-                                            & \ctrl{-3} & \gate{R_z^{(-\beta)}} &
-                                    \gate{H} & \meter \inputgroupv{1}{4}{.8em}{.8em}{\ket{0}^{\otimes 4}}
-                                }
-                            \]
-                        \end{minipage}
-
+                        \centering
+                        \[
+                            \Qcircuit @C=1em @R=.6em @!R {
+                                \lstick{} & \gate{H} & \ctrl{1}  & \qw       & \qw
+                                        & \ctrl{1} & \gate{R_z^{(-\alpha)}} &
+                                \gate{H} & \meter & \cw \\
+                                \lstick{} & \gate{H} & \ctrl{-1} & \ctrl{1}  & \qw
+                                        & \qw & \gate{Z} & \gate{H} & \meter
+                                        & \cw \\
+                                \lstick{} & \gate{H} & \qw       & \ctrl{-1} & \ctrl{1}
+                                        & \qw & \gate{Z} & \gate{H} & \meter
+                                        & \cw \\
+                                \lstick{} & \gate{H} & \qw       & \qw       & \ctrl{-1}
+                                        & \ctrl{-3} & \gate{R_z^{(-\beta)}} &
+                                \gate{H} & \meter & \cw \inputgroupv{1}{4}{.8em}{.8em}{\ket{0}^{\otimes 4}}
+                            }
+                        \]
+                        \caption{Measurement-based two-qubit Grover's algorithm
+                        on a four-qubit box graph state}
+                        \label{fig:qiskit_box_graph_state}
+                    \end{figure}
+                    \begin{figure}
+                        \centering
+                        \[
+                            \Qcircuit @C=1.0em @R=.6em @!R {
+                                \lstick{} & \gate{H} & \ctrl{1}  & \qw       & \qw
+                                        & \qw & \gate{R_z^{(-\alpha)}} &
+                                \gate{H} & \meter  & \cw \\
+                                \lstick{} & \gate{H} & \ctrl{-1} & \ctrl{1}  & \qw
+                                            & \gate{H} & \gate{Z} & \gate{H} & \meter
+                                        & \cw \\
+                                \lstick{} & \gate{H} & \qw       & \ctrl{-1} & \ctrl{1}
+                                            & \gate{H} & \gate{Z} & \gate{H} & \meter
+                                        & \cw \\
+                                \lstick{} & \gate{H} & \qw       & \qw       & \ctrl{-1}
+                                        & \qw & \gate{R_z^{(-\beta)}} &
+                                \gate{H} & \meter & \cw \inputgroupv{1}{4}{.8em}{.8em}{\ket{0}^{\otimes 4}}
+                            }
+                        \]
+                        \caption{ Measurement-based two-qubit Grover's algorithm
+                        on a four-qubit linear graph state}
+                        \label{fig:qiskit_linear_graph_state}
                     \end{figure}
 
                 \end{block}
@@ -570,8 +549,190 @@
 
             \begin{column}{\colwidth}
                 \begin{block}{Results}
+                    \heading{Case study 00}
+                    The results below were obtained for the algorithm described
+                    in case study $00$, showing the feedforward and no feedforward
+                    results. In all cases,the success probabilities are
+                    approximately 75\%.
+                    \pgfplotstableread{data/vigo_gcl.dat}{\data}           % Read
+                    \pgfplotstablegetrowsof{data/vigo_gcl.dat}
+                    \pgfmathtruncatemacro{\rows}{\pgfplotsretval-1}       % Put the number of row minus one in \rows, 
+                    \pgfplotstablegetelem{0}{[index] 0}\of{\data} 
+                            \let\maxX\pgfplotsretval 
+                    \pgfplotstablegetelem{0}{[index] 1}\of{\data} 
+                            \let\maxY\pgfplotsretval 
+                    \pgfplotstablegetelem{0}{[index] 2}\of{\data} 
+                            \let\maxZ\pgfplotsretval 
+                    \pgfmathsetmacro{\Zscale}{4/\maxZ} % contain the values of z between 0 and 4 cm 
+                    \begin{figure}[H]
+                        \centering
+                        \begin{tikzpicture}[x={(0.866cm,-0.5cm)},y={(0.866cm,0.5cm)},z={(0cm,\Zscale
+                            cm)}, scale=1.25]
+
+                        % Defining hsb color to have a color scale
+                        \colorlet{redhsb}[hsb]{red}     %
+                        \colorlet{bluehsb}[hsb]{blue}   % 
+                        \pgfmathsetmacro{\w}{0.35/2} % half the width of the bars
+
+                        % Drawing the system of axes
+                        \draw[->] (0,-0.5,0) -- (12,-0.5,0) node [black,left] {};
+                        \draw[->] (0,-0.5,0) -- (0,6,0) node [black,left] {};
+                        \draw[->] (0,-0.5,0) -- (0,-0.5,1.2) node [black,left] {};
+
+                        \draw (1.5, -1.80, 0) node[label={00}] {};
+                        \draw (4.75, -1.80, 0) node[label={01}] {};
+                        \draw (7.75, -1.80, 0) node[label={10}] {};
+                        \draw (10.75, -1.80, 0) node[label={11}] {};
+
+
+                        \coordinate (aux3) at (2, -2.5);
+                        \coordinate (aux4) at (9, -2.5);
+
+                        \draw[draw=none] (aux3)  -- node[fill=white,sloped] {Tagged element} (aux4);
+
+
+                        \draw[-] (0,-0.5,0.0) node [black,left] {0.00};
+                        \draw[-] (0,-0.5,0.25) node [black,left] {0.25};
+                        \draw[-] (0,-0.5,0.50) node [black,left] {0.50};
+                        \draw[-] (0,-0.5,0.75) node [black,left] {0.75};
+                        \draw[-] (0,-0.5,1.0) node [black,left] {1.00};
+
+                        \coordinate (aux5) at (12,0);
+                        \coordinate (aux6) at (14,0);
+
+                        \coordinate (aux7) at (12,4);
+                        \coordinate (aux8) at (14,4);
+
+
+                        \draw[<-] (aux5)  -- node[sloped, above] {FF} (aux6);
+                        \draw[<-] (aux7)  -- node[sloped, above] {NO FF} (aux8);
+
+
+
+                        \foreach \p in {1,...,\rows}{
+                                \pgfplotstablegetelem{\p}{[index] 0}\of{\data}    % The order in which the bars are drawn is determined by
+                                \let\x\pgfplotsretval                                   %    the order of the lines in the data file.
+                                \pgfplotstablegetelem{\p}{[index] 1}\of{\data}    % And as the drawings just pile up, the last one just goes
+                                \let\y\pgfplotsretval                                   %    on top of the previous drawings.
+                                \pgfplotstablegetelem{\p}{[index] 2}\of{\data}    % The order here works with chosen view angle, if you
+                                \let\z\pgfplotsretval                                   %    change the angle, you might have to change it.
+
+
+                                \pgfmathtruncatemacro{\teinte}{100 - Mod(2*\x, 6)*100/4}
+                                \colorlet{col}[rgb]{bluehsb!\teinte!redhsb}   
+                                % Visible faces from original view
+                                    \fill[col] (\x+\w,\y+\w,\z) -- (\x+\w,\y-\w,\z) -- (\x+\w,\y-\w,0) -- (\x+\w,\y+\w,0) -- (\x+\w,\y+\w,\z);
+                                        \draw[black](\x+\w,\y+\w,\z) -- (\x+\w,\y-\w,\z) -- (\x+\w,\y-\w,0) -- (\x+\w,\y+\w,0) -- (\x+\w,\y+\w,\z);
+                                    \fill[col!60!gray] (\x+\w,\y-\w,\z) -- (\x-\w,\y-\w,\z) -- (\x-\w,\y-\w,0) -- (\x+\w,\y-\w,0) -- (\x+\w,\y-\w,\z);
+                                        \draw[black](\x+\w,\y-\w,\z) -- (\x-\w,\y-\w,\z) -- (\x-\w,\y-\w,0) -- (\x+\w,\y-\w,0) -- (\x+\w,\y-\w,\z);
+                                % Top face
+                                \fill[top color=col!40!gray, bottom color=col!80!gray] (\x-\w,\y-\w,\z) -- (\x-\w,\y+\w,\z) -- (\x+\w,\y+\w,\z) -- (\x+\w,\y-\w,\z) -- (\x-\w,\y-\w,\z) ;
+                                    \draw[black] (\x-\w,\y-\w,\z) -- (\x-\w,\y+\w,\z) -- (\x+\w,\y+\w,\z) -- (\x+\w,\y-\w,\z) -- (\x-\w,\y-\w,\z);
+                        }
+
+                        \end{tikzpicture}
+                        \caption{The measured outputs of Grover's algorithm on ibmq\_vigo. The data labeled as
+                        'NO FF' show the outputs in those cases the outputs $\{o_1, o_4\}$ were both
+                        zero. The data labeled 'FF' show the outputs to which the feedfoward relation
+                        was applied}
+                    \end{figure}
+
+                    \heading{Case study 01}
+                    The results below were those obtained for the algorithm
+                    described in case study $01$. Success probabilities are all
+                    well over 80\%, making this computation almost as good as the computation in
+                    the quantum circuit model computation albeit the greater
+                    number of gates.
+                    \pgfplotstableread{data/vigo_glu.dat}{\data}           % Read
+                    \pgfplotstablegetrowsof{data/vigo_glu.dat}
+                    \pgfmathtruncatemacro{\rows}{\pgfplotsretval-1}       % Put the number of row minus one in \rows, 
+                    \pgfplotstablegetelem{0}{[index] 0}\of{\data} 
+                            \let\maxX\pgfplotsretval 
+                    \pgfplotstablegetelem{0}{[index] 1}\of{\data} 
+                            \let\maxY\pgfplotsretval 
+                    \pgfplotstablegetelem{0}{[index] 2}\of{\data} 
+                            \let\maxZ\pgfplotsretval 
+                    \pgfmathsetmacro{\Zscale}{4/\maxZ} % contain the values of z between 0 and 4 cm 
+                    \begin{figure}[H]
+                        \centering
+                        \begin{tikzpicture}[x={(0.866cm,-0.5cm)},y={(0.866cm,0.5cm)},z={(0cm,\Zscale
+                            cm)}, scale=1.25]
+
+                        % Defining hsb color to have a color scale
+                        \colorlet{redhsb}[hsb]{red}     %
+                        \colorlet{bluehsb}[hsb]{blue}   % 
+                        \pgfmathsetmacro{\w}{0.35/2} % half the width of the bars
+
+                        % Drawing the system of axes
+                        \draw[->] (0,-0.5,0) -- (12,-0.5,0) node [black,left] {};
+                        \draw[->] (0,-0.5,0) -- (0,6,0) node [black,left] {};
+                        \draw[->] (0,-0.5,0) -- (0,-0.5,1.2) node [black,left] {};
+
+                        \draw (1.5, -1.8, 0) node[label={00}] {};
+                        \draw (4.75, -1.8, 0) node[label={01}] {};
+                        \draw (7.75, -1.8, 0) node[label={10}] {};
+                        \draw (10.75, -1.8, 0) node[label={11}] {};
+
+
+                        \coordinate (aux3) at (2, -2.5);
+                        \coordinate (aux4) at (9, -2.5);
+
+                        \draw[draw=none] (aux3)  -- node[fill=white,sloped] {Tagged element} (aux4);
+
+
+                        \draw[-] (0,-0.5,0.0) node [black,left] {0.00};
+                        \draw[-] (0,-0.5,0.25) node [black,left] {0.25};
+                        \draw[-] (0,-0.5,0.50) node [black,left] {0.50};
+                        \draw[-] (0,-0.5,0.75) node [black,left] {0.75};
+                        \draw[-] (0,-0.5,1.0) node [black,left] {1.00};
+
+                        \coordinate (aux5) at (12,0);
+                        \coordinate (aux6) at (14,0);
+
+                        \coordinate (aux7) at (12,4);
+                        \coordinate (aux8) at (14,4);
+
+
+                        \draw[<-] (aux5)  -- node[sloped, above] {FF} (aux6);
+                        \draw[<-] (aux7)  -- node[sloped, above] {NO FF} (aux8);
+
+
+
+                        \foreach \p in {1,...,\rows}{
+                                \pgfplotstablegetelem{\p}{[index] 0}\of{\data}    % The order in which the bars are drawn is determined by
+                                \let\x\pgfplotsretval                                   %    the order of the lines in the data file.
+                                \pgfplotstablegetelem{\p}{[index] 1}\of{\data}    % And as the drawings just pile up, the last one just goes
+                                \let\y\pgfplotsretval                                   %    on top of the previous drawings.
+                                \pgfplotstablegetelem{\p}{[index] 2}\of{\data}    % The order here works with chosen view angle, if you
+                                \let\z\pgfplotsretval                                   %    change the angle, you might have to change it.
+
+
+                                \pgfmathtruncatemacro{\teinte}{100 - Mod(2*\x, 6)*100/4}
+                                \colorlet{col}[rgb]{bluehsb!\teinte!redhsb}   
+                                % Visible faces from original view
+                                    \fill[col] (\x+\w,\y+\w,\z) -- (\x+\w,\y-\w,\z) -- (\x+\w,\y-\w,0) -- (\x+\w,\y+\w,0) -- (\x+\w,\y+\w,\z);
+                                        \draw[black](\x+\w,\y+\w,\z) -- (\x+\w,\y-\w,\z) -- (\x+\w,\y-\w,0) -- (\x+\w,\y+\w,0) -- (\x+\w,\y+\w,\z);
+                                    \fill[col!60!gray] (\x+\w,\y-\w,\z) -- (\x-\w,\y-\w,\z) -- (\x-\w,\y-\w,0) -- (\x+\w,\y-\w,0) -- (\x+\w,\y-\w,\z);
+                                        \draw[black](\x+\w,\y-\w,\z) -- (\x-\w,\y-\w,\z) -- (\x-\w,\y-\w,0) -- (\x+\w,\y-\w,0) -- (\x+\w,\y-\w,\z);
+                                % Top face
+                                \fill[top color=col!40!gray, bottom color=col!80!gray] (\x-\w,\y-\w,\z) -- (\x-\w,\y+\w,\z) -- (\x+\w,\y+\w,\z) -- (\x+\w,\y-\w,\z) -- (\x-\w,\y-\w,\z) ;
+                                    \draw[black] (\x-\w,\y-\w,\z) -- (\x-\w,\y+\w,\z) -- (\x+\w,\y+\w,\z) -- (\x+\w,\y-\w,\z) -- (\x-\w,\y-\w,\z);
+                        }
+
+                        \end{tikzpicture}
+                        \caption{The measured outputs of Grover's algorithm on ibmq\_ourense. The data labeled as
+                        'NO FF' show the outputs in those cases the outputs $\{o_1, o_4\}$ were both zero. The data labeled 'FF' show the outputs to which the feedforward relation
+                        was applied}
+                    \end{figure}
+                \end{block}
+                \begin{block}{References}
+                    \nocite{*}
+                    \footnotesize{\bibliographystyle{plain}\bibliography{poster}}
                 \end{block}
             \end{column}
+
+
+            \separatorcolumn
         \end{columns}
     \end{frame}
 
