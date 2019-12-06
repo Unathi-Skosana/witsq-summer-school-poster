@@ -95,7 +95,7 @@
                     unitary evolution of qubits mediated by unitary quantum gates as in the
                     quantum circuit model.
 
-                    Rather, a computation is realized through a sequential single-qubit
+                    Rather, a computation is realized through sequential single-qubit
                     measurements on an initial resource
                     state~\cite{PhysRevA.68.022312}.
 
@@ -198,7 +198,7 @@
 
                 \begin{block}{Graph states for quantum computation}
                     %%% TODO: References
-                    The initial resource states are provided in the form  of highly
+                    The initial resource states are provided in the form of highly
                     entangled multi-qubit states called \textbf{graph states}
 
                     \begin{align}
@@ -272,7 +272,7 @@
 
                     \heading{Local unitaries}
                     %% TODO : References
-                    If two graph state vectors $\ket{G}$ and $\ket{G'}$  and their
+                    Two graph state vectors $\ket{G}$ and $\ket{G'}$  and their
                     underlying graphs $G$ and  $G'$ are said to
                     equivalent to another under a local unitary $\hat{U}$ 
 
@@ -290,7 +290,7 @@
                     From an underling graph $G = (V, E)$ of a graph state $\ket{G}$, a new
                     graph $G' = (V, E')$ and an associated graph state $\ket{G'}$ can be
                     realized via the complement of a subgraph induced by the neighborhood of some vertex $k
-                    \in V$ of $G$. The two graph states $\ket{G}$ and $\ket{G'}$ are said belong to the same
+                    \in V$ of $G$. Then the two graph states $\ket{G}$ and $\ket{G'}$ are said belong to the same
                     \textbf{LU-equivalence} class~\cite{PhysRevA.69.062311}.
                 \end{block}
             \end{column}
@@ -302,7 +302,7 @@
                     \heading{Unitary for edge complementaion}
                     The mapping $\tau^k : G \mapsto G'$ under edge local complementaion is mediated
                     by a unitary operation
-                    $\hat{U}^{k}$~\cite{PhysRevA.69.062311}
+                    $\hat{U}^{k}$~\cite{PhysRevA.69.062311}.
 
                     \begin{align}
                         \ket{\tau^k(G)} =\hat{U}^{k}(G) \ket{G}
@@ -377,7 +377,7 @@
                             \label{fig:edge_local_complementation_example}
                     \end{figure}
 
-                    Under the vertex-mapping bijection that swaps vertex $1$ and $4$, the
+                    Under the vertex-mapping bijection that swaps vertices $1$ and $4$, the
                     graphs in the last step of
                     Fig.~\ref{fig:edge_local_complementation_example} and
                     Fig.~\ref{fig:box_cluster_4q} are isomorphic to one another.
@@ -386,8 +386,9 @@
                     %% TODO : References
                     \heading{Two-qubit quantum search on four-qubit box graph state}
                     A two-qubit measurement-based version of Grover's quantum search algorithm can be realized
-                    on the four-qubit box graph state.~\cite{Walther_2005}
-                    Through Measurements of qubits $1$ and $4$ of Fig.~\ref{fig:box_cluster_4q} in the
+                    on the four-qubit box graph state~\cite{Walther_2005}.
+
+                    Through measurements of qubits $1$ and $4$ of Fig.~\ref{fig:box_cluster_4q} in the
                     basis $B_j(\alpha) = \{\ket{+\alpha}_j, \ket{-\alpha}_j\}$
                     where $\ket{\pm \alpha} = \frac{1}{\sqrt{2}}(\ket{0}_j \pm
                     e^{i\alpha}\ket{1}_j) \quad (\alpha \in \mathbb{R})$. Reading out
@@ -402,6 +403,8 @@
                                 \draw (-4 , 0) node[label={measure}] {};
                                 \draw (0 , 0) node[label={readout}] {};
                                 \draw[dashed] (-2.0, 0) -- ++(0, -5.5) {};
+                                \draw[->] (-4, -7) -- ++(4, 0) node[midway,
+                                    label={time}] {};
 
                                 \foreach \place/\name in {{(0,-1)/2}, {(-3,-1)/1},
                                 {(-3,-4)/4}, {(0,-4)/3}}
@@ -434,19 +437,21 @@
                         \end{minipage}
                     \end{figure}
 
-                    Each of the four cases where the oracle tags the elements
+                    Each of the four cases, where the oracle tags the elements
                     $00$, $01$, $10$ and $11$ are realized by the measurement
                     settings $\alpha\beta = $ $\pi\pi$, $\pi0$, $0\pi$ and $00$
                     respectively.
 
                     \heading{Caveats}
                     The outcome of a measurement in the basis $B_i(\alpha)$ on
-                    qubit $i$ $o_i$, which is 0(1) for a measurement of
-                    $\ket{+\alpha}(\ket{-\alpha})$.  If the measurement on qubit
-                    $1$ and $4$ are anything either than $o_1= 0$ and $o_4= 0$ a
-                    Pauli errors are introduced and there is a need to
-                    reinterpret the outcomes on qubit $2$ and $3$. In this
-                    scenario, a feedforward  of the outcomes must be applied 
+                    qubit $i$ is $o_i$, which is 0(1) for a measurement of
+                    $\ket{+\alpha}(\ket{-\alpha})$.
+
+                    If the measurement on qubits $1$ and $4$ are anything either
+                    than $o_1= 0$ and $o_4= 0$, a Pauli errors are introduced and there
+                    is a need to reinterpret the outcomes on qubits $2$ and $3$.
+
+                    In such a scenario, a feedforward of the outcomes must be applied 
                     $\{o_2 \oplus o_4, o_3 \oplus o_ 1\}$.
                 \end{block}
             \end{column}
@@ -474,24 +479,24 @@
 
                 \end{block}
                 \begin{block}{Qiskit experiments}
-                    To model the algorithm described in two case studies, the
-                    quantum circuits  in Fig.~\ref{fig:qiskit_box_graph_state}
+                    To model the algorithms described in two case studies, the
+                    quantum circuits in Fig.~\ref{fig:qiskit_box_graph_state}
                     and Fig.~\ref{fig:qiskit_linear_graph_state} were executed on the
-                    IBM Q 5 vigo machine, with trials of 8100 shots.
+                    IBM Q 5 vigo machine, with trials of $8100$ shots.
 
                     Since the IBM Q 5 vigo machine doesn't have the necessary
-                    topology for a four-qubit box graph state, the
-                    mapping to physical qubits was chosen as to minimize the
+                    topology to realize a four-qubit box graph state, the
+                    mapping of logical qubits to physical qubits was chosen as to minimize the
                     number of swaps gate in the resulting transpiled circuit.
 
                     To further limit the number of gates, the feedforward
                     operations which would be CNOT gates on the
-                    relevant qubtis were done post. Similarly, the swap of
-                    qubits $2$ and $3$ in the algorithm in case stduy $01$ was
-                    also done post.
+                    relevant qubtis were done post-experiment. Similarly, the swap of
+                    qubits $2$ and $3$ in the algorithm in case study $01$ was
+                    also done post-experiment.
 
                     The four-qubit linear graph sate passed an multi-partitte
-                    stabilizer-based entanglement witnesses
+                    stabilizer-based entanglement witness
                     test~\cite{PhysRevA.72.022340}, giving an expectation value of
                     $\expval{\mathcal{W}} = -0.45 \pm 0.261$ while the four-qubit
                     box graph state narrowly failed the entanglement witness
@@ -500,10 +505,12 @@
                     \begin{figure}[H]
                         \centering
                         \[
-                            \Qcircuit @C=1em @R=.6em @!R {
+                            \Qcircuit @C=2.0em @R=.6em @!R {
+                                & &  \mbox{state prep} & & & & & \mbox{$B_1(\alpha),
+                        B_{2/3}(\pi) \text{ and } B_4(\beta)$} & \\
                                 \lstick{} & \gate{H} & \ctrl{1}  & \qw       & \qw
-                                        & \ctrl{1} & \gate{R_z^{(-\alpha)}} &
-                                \gate{H} & \meter & \cw \\
+                                        & \ctrl{1} & \gate{R_z^{(-\alpha)}}
+                                        & \gate{H} & \meter & \cw \\
                                 \lstick{} & \gate{H} & \ctrl{-1} & \ctrl{1}  & \qw
                                         & \qw & \gate{Z} & \gate{H} & \meter
                                         & \cw \\
@@ -511,8 +518,11 @@
                                         & \qw & \gate{Z} & \gate{H} & \meter
                                         & \cw \\
                                 \lstick{} & \gate{H} & \qw       & \qw       & \ctrl{-1}
-                                        & \ctrl{-3} & \gate{R_z^{(-\beta)}} &
-                                \gate{H} & \meter & \cw \inputgroupv{1}{4}{.8em}{.8em}{\ket{0}^{\otimes 4}}
+                                        & \ctrl{-3} & \gate{R_z^{(-\beta)}}
+                                        & \gate{H} & \meter & \cw
+                                        \gategroup{2}{2}{5}{6}{.7em}{--} 
+                                        \gategroup{2}{7}{5}{9}{.7em}{--} 
+                                        \inputgroupv{2}{5}{.8em}{.8em}{\ket{0}^{\otimes 4}}
                             }
                         \]
                         \caption{Measurement-based two-qubit Grover's algorithm
@@ -522,9 +532,13 @@
                     \begin{figure}
                         \centering
                         \[
-                            \Qcircuit @C=1.0em @R=.6em @!R {
+                            \Qcircuit @C=2.0em @R=.6em @!R {
+                                & &  \mbox{state prep} & & &
+                            \mbox{$\hat{U}^3\hat{U}^2\hat{U}^3$} & & 
+                                \mbox{$B_1(\alpha), B_{2/3}(\pi) \text{ and }
+                                    B_{4}(\beta)$}  & \\
                                 \lstick{} & \gate{H} & \ctrl{1}  & \qw       & \qw
-                                        & \qw & \gate{R_z^{(-\alpha)}} &
+                                          & \gate{Z} & \gate{R_z^{(-\alpha)}} &
                                 \gate{H} & \meter  & \cw \\
                                 \lstick{} & \gate{H} & \ctrl{-1} & \ctrl{1}  & \qw
                                             & \gate{H} & \gate{Z} & \gate{H} & \meter
@@ -533,15 +547,18 @@
                                             & \gate{H} & \gate{Z} & \gate{H} & \meter
                                         & \cw \\
                                 \lstick{} & \gate{H} & \qw       & \qw       & \ctrl{-1}
-                                        & \qw & \gate{R_z^{(-\beta)}} &
-                                \gate{H} & \meter & \cw \inputgroupv{1}{4}{.8em}{.8em}{\ket{0}^{\otimes 4}}
+                                          & \gate{Z} & \gate{R_z^{(-\beta)}} 
+                                        & \gate{H} & \meter & \cw
+                                        \gategroup{2}{2}{5}{5}{.7em}{--} 
+                                        \gategroup{2}{6}{5}{6}{.7em}{--} 
+                                        \gategroup{2}{7}{5}{9}{.7em}{--} 
+                                        \inputgroupv{2}{5}{.8em}{.8em}{\ket{0}^{\otimes 4}}
                             }
                         \]
                         \caption{ Measurement-based two-qubit Grover's algorithm
                         on a four-qubit linear graph state}
                         \label{fig:qiskit_linear_graph_state}
                     \end{figure}
-
                 \end{block}
             \end{column}
 
@@ -720,7 +737,8 @@
                         }
 
                         \end{tikzpicture}
-                        \caption{The measured outputs of Grover's algorithm on ibmq\_ourense. The data labeled as
+                        \caption{The measured outputs of Grover's algorithm on
+                            ibmq\_vigo. The data labeled as
                         'NO FF' show the outputs in those cases the outputs $\{o_1, o_4\}$ were both zero. The data labeled 'FF' show the outputs to which the feedforward relation
                         was applied}
                     \end{figure}
@@ -730,8 +748,6 @@
                     \footnotesize{\bibliographystyle{plain}\bibliography{poster}}
                 \end{block}
             \end{column}
-
-
             \separatorcolumn
         \end{columns}
     \end{frame}

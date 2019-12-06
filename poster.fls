@@ -1,4 +1,4 @@
-PWD /home/nyx/Dropbox/hons-quantum-graph-theory/posters/witsq-summer-school
+PWD /home/nyx/Repositories/witsq-summer-school-poster
 INPUT /var/lib/texmf/web2c/luatex/lualatex.fmt
 INPUT ./poster.tex
 OUTPUT poster.log

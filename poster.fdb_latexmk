@@ -1,12 +1,12 @@
 # Fdb version 3
-["bibtex poster"] 1575609064 "poster.aux" "poster.bbl" "poster" 1575609070
+["bibtex poster"] 1575638866 "poster.aux" "poster.bbl" "poster" 1575638953
   "/usr/share/texmf-dist/bibtex/bst/base/plain.bst" 1572595918 20613 bd3fbfa9f64872b81ac57a0dd2ed855f ""
-  "poster.aux" 1575609069 5000 38fe196bd5b7e4af8c2078c3d5b11f82 "lualatex"
-  "poster.bib" 1575609056 1779 818ee36da7ff5310ddeed36eea193dcb ""
+  "poster.aux" 1575638952 5000 38fe196bd5b7e4af8c2078c3d5b11f82 "lualatex"
+  "poster.bib" 1575620978 1779 818ee36da7ff5310ddeed36eea193dcb ""
   (generated)
-  "poster.blg"
   "poster.bbl"
-["lualatex"] 1575609064 "poster.tex" "poster.pdf" "poster" 1575609070
+  "poster.blg"
+["lualatex"] 1575638947 "poster.tex" "poster.pdf" "poster" 1575638953
   "/home/nyx/.texlive/texmf-var/luatex-cache/generic/fonts/otl/lato-bold.luc" 1575222319 1525250 fcf0f3c925c641b64b91d8428741bdcc ""
   "/home/nyx/.texlive/texmf-var/luatex-cache/generic/fonts/otl/lato-bolditalic.luc" 1575222316 1554205 f4e8bf576e9230f061d03634dfa3981d ""
   "/home/nyx/.texlive/texmf-var/luatex-cache/generic/fonts/otl/lato-italic.luc" 1575222322 1580274 fdc206ccfa62f63443eb08bfe646cb51 ""
@@ -346,16 +346,16 @@
   "data/vigo_gcl.dat" 1572421220 548 49544c020df5ca4f226fa99b4ffe4f59 ""
   "data/vigo_glu.dat" 1572421273 550 d8fc43edc6eb14318471190c38603527 ""
   "logo/logo.pdf" 1575372051 9251 1fe86bcec57a246ecb4d13279e7f551a ""
-  "poster.aux" 1575609069 5000 38fe196bd5b7e4af8c2078c3d5b11f82 "lualatex"
-  "poster.bbl" 1575609070 845 f5e6499b29f01f58c6f9358d5519fe53 "bibtex poster"
-  "poster.nav" 1575609069 307 9e520c26371a1250ff9fc1fe87f9c655 "lualatex"
-  "poster.out" 1575609067 0 d41d8cd98f00b204e9800998ecf8427e "lualatex"
-  "poster.tex" 1575608980 39142 1eb89ba3e0c11233ce5a5263a2c5cc00 ""
+  "poster.aux" 1575638952 5000 38fe196bd5b7e4af8c2078c3d5b11f82 "lualatex"
+  "poster.bbl" 1575638953 845 f5e6499b29f01f58c6f9358d5519fe53 "bibtex poster"
+  "poster.nav" 1575638952 307 9e520c26371a1250ff9fc1fe87f9c655 "lualatex"
+  "poster.out" 1575638950 0 d41d8cd98f00b204e9800998ecf8427e "lualatex"
+  "poster.tex" 1575638944 40263 f2b6601569c135301b9de0aef3e3cb0d ""
   (generated)
-  "poster.pdf"
   "poster.nav"
-  "poster.aux"
-  "poster.log"
-  "poster.snm"
-  "poster.out"
   "poster.toc"
+  "poster.log"
+  "poster.out"
+  "poster.aux"
+  "poster.snm"
+  "poster.pdf"

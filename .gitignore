@@ -1,4 +1,7 @@
-## Tex dump
+# output
+*.pdf
+
+# intermediate files
 *.aux
 *.bbl
 *.blg
