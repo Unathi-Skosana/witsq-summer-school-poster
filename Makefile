@@ -20,7 +20,7 @@ TARGETS := $(patsubst %, %.pdf, $(BUILD))
 all: $(TARGETS)
 
 clean:
-	rm -rf *.pdf *.aux *.bbl *.blg *.log *.nav *.out *.snm *.toc
+	rm -rf *.aux *.bbl *.blg *.log *.nav *.out *.snm *.toc *.synctex* *.xdv *.fdb_latexmk *.fls
 
 .PHONY: all clean
 
