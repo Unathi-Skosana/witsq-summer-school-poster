@@ -88,11 +88,11 @@
             \begin{column}{\colwidth}
                 \begin{block}{One-way quantum computing}
                     %% TODO : References 
-                    One-way quantum computing is one of many frameworks of quantum
-                    measurement-based quantum computing (MBQC).
+                    One-way quantum computing is one of many frameworks of
+                    measurement-based quantum computation (MBQC).
 
-                    In such framework, a quantum computation is not realized through explicit
-                    unitary evolution of qubits mediated by unitary quantum gates as in the
+                    In such framework, a quantum computation is not realized
+                    through an explicit unitary evolution of qubits mediated by unitary quantum gates as in the
                     quantum circuit model.
 
                     Rather, a computation is realized through sequential single-qubit
@@ -281,10 +281,9 @@
                         \label{eq:graph_state_unitary_equivalence}
                     \end{align}
 
-                    The graph states $\ket{G}$ and  $\ket{G'}$ are said to belong some
+                    The graph states $\ket{G}$ and $\ket{G'}$ are said to belong some
                     equivalence class and within such a class, all graph states are
                     equivalent modulo local unitaries (LU). 
-
 
                     \heading{Edge local complementaion and equivalence classes}
                     From an underling graph $G = (V, E)$ of a graph state $\ket{G}$, a new
@@ -366,6 +365,7 @@
                                     \path (2) edge (3);
                                     \path (2) edge (4);
                                     \path (1) edge (3);
+                                    \path (1) edge (4);
                             \end{tikzpicture}
                         \end{subfigure}%
                         \begin{subfigure}[b]{0.25\textwidth}
@@ -382,7 +382,7 @@
                         \end{subfigure}
                         \caption{Sequentially applying the edge local complementaion
                             rule on a four-qubit linear graph state showing that such a
-                            state is LU-equivalent to four-qubit box graph state under
+                            state is LU-equivalent to the four-qubit box graph state under
                             unitary transformation $\hat{U}^{3}\hat{U}^{2}\hat{U}^{3} =
                             \hat{\sigma}^{1}_{z}\otimes\hat{H}^{2}\otimes\hat{H}^{3}\otimes\hat{\sigma}^{4}_z$}
                             \label{fig:edge_local_complementation_example}
@@ -401,11 +401,10 @@
 
                     Through measurements of qubits $1$ and $4$ of Fig.~\ref{fig:box_cluster_4q} in the
                     basis $B_j(\alpha) = \{\ket{+\alpha}_j, \ket{-\alpha}_j\}$
-                    where $\ket{\pm \alpha} = \frac{1}{\sqrt{2}}(\ket{0}_j \pm
+                    where $\ket{\pm \alpha}_j = \frac{1}{\sqrt{2}}(\ket{0}_j \pm
                     e^{i\alpha}\ket{1}_j) \quad (\alpha \in \mathbb{R})$. Reading out
-                    qubits $2$ and $3$ in the basis $B(\pi) =
+                    qubits $2$ and $3$ in the basis $B_j(\pi) =
                     \frac{1}{\sqrt{2}}(\ket{0}_j \mp \ket{1}_j)$.
-
 
                     \begin{figure}[H]
                         \raggedright
@@ -433,12 +432,12 @@
                                     \lstick{\ket{+}_2} & \ctrl{1}
                                     & \gate{R_z^{(-\alpha)}}
                                     & \gate{H} & \ctrl{1}
-                                    & \gate{\sigma_z}  & \gate{H}
+                                    & \gate{Z}  & \gate{H}
                                     &  \meter & \cw \\
                                     \lstick{\ket{+}_3} & \ctrl{-1}
                                     & \gate{R_z^{(-\beta)}}
                                     & \gate{H} & \ctrl{-1}
-                                    & \gate{\sigma_z} & \gate{H}
+                                    & \gate{Z} & \gate{H}
                                     & \meter & \cw 
                                     \gategroup{2}{2}{3}{3}{.6em}{--}
                                     \gategroup{2}{4}{3}{7}{.6em}{--} \\ 
@@ -459,9 +458,10 @@
                     $\ket{+\alpha}(\ket{-\alpha})$.
 
                     If the measurement on qubits $1$ and $4$ are anything either
-                    than $o_1= 0$ and $o_4= 0$, a Pauli errors are introduced and there
-                    is a need to reinterpret the outcomes on qubits $2$ and $3$. In such a scenario, a
-                    feedforward of the outcomes must be applied $\{o_2 \oplus o_4, o_3 \oplus o_ 1\}$.
+                    than $o_1= 0$ and $o_4= 0$, Pauli errors are introduced and
+                    there is a need to reinterpret the outcomes on qubits $2$ and $3$. In such a scenario, a
+                    feedforward of the outcomes must be applied $\{o_2, o_3\}
+                    \mapsto \{o_2 \oplus o_4, o_3 \oplus o_ 1\}$.
                 \end{block}
             \end{column}
 
@@ -475,20 +475,17 @@
 
                     The resultant LU-equivalent four-qubit
                     linear graph state has one less $\text{CZ}$ gate than the
-                    four-qubit graph state, which significantly improves upon
+                    four-qubit graph state, which should have an improvement  upon
                     the performance of the former implementation since generally
-                    NISQ two-qubit gates have error rates that are much higher than
-                    single-qubit gates.
+                    NISQ two-qubit gates are much more error-prone than single-qubit gates.
 
                     The measurement procedure is the same as in the former
                     implementation, however the feedforward relation has
-                    modified to $\{o_2 \oplus o_1, o_3 \oplus o_4 \}$ since
-                    qubits $2$ and $3$ have to swapped. Similarly measurement outcomes have
-                    to swapped.
-
+                    modified to $\{o_2, o_3\} \mapsto \{o_2 \oplus o_1, o_3 \oplus o_4 \}$ since
+                    qubits $1$ and $4$ have to swapped.
                 \end{block}
                 \begin{block}{Qiskit experiments}
-                    To model the algorithms described in two case studies, the
+                    To model the algorithms described in the two case studies, the
                     quantum circuits in Fig.~\ref{fig:qiskit_box_graph_state}
                     and Fig.~\ref{fig:qiskit_linear_graph_state} were executed on the
                     IBM Q 5 vigo machine, with trials of $8100$ shots.
@@ -496,7 +493,7 @@
                     Since the IBM Q 5 vigo machine doesn't have the necessary
                     topology to realize a four-qubit box graph state, the
                     mapping of logical qubits to physical qubits was chosen as to minimize the
-                    number of swaps gate in the resulting transpiled circuit.
+                    number of swap gates in the resulting transpiled circuit.
 
                     To further limit the number of gates, the feedforward
                     operations which would be CNOT gates on the
@@ -564,7 +561,7 @@
                                         \inputgroupv{2}{5}{.8em}{.8em}{\ket{0}^{\otimes 4}}
                             }
                         \]
-                        \caption{ Measurement-based two-qubit Grover's algorithm
+                        \caption{Measurement-based two-qubit Grover's algorithm
                         on a four-qubit linear graph state}
                         \label{fig:qiskit_linear_graph_state}
                     \end{figure}
@@ -757,6 +754,7 @@
                     \footnotesize{\bibliographystyle{plain}\bibliography{poster}}
                 \end{block}
             \end{column}
+
             \separatorcolumn
         \end{columns}
     \end{frame}
